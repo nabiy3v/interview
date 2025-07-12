@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import store from 'store2';
-import { AuthContext } from '~/modules/auth/context';
 
 export interface CatalogProps {}
 
@@ -25,19 +24,14 @@ interface MentorResponse {
 export const Catalog: React.FC<CatalogProps> = () => {
   const [mentors, setMentors] = useState<MentorResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { isAuthenticated } = useContext(AuthContext)
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    
       const fetchMentors = async () => {
         try {
-          const response = await fetch('http://157.180.27.123:8002/api/v1/catalogs/082cc4ac-df8b-42f0-a505-eb3691c2e2ba', {
-              headers: {
-                  'Authorization': `Bearer ${store.get('access-token')}`,
-                  'Content-type': 'application/json'
-              }
-          });
+          const response = await fetch('http://157.180.27.123:8002/api/v1/catalogs/082cc4ac-df8b-42f0-a505-eb3691c2e2ba');
+          console.log(response)
           const data = await response.json();
           setMentors(data);
         } catch (error) {
@@ -47,7 +41,7 @@ export const Catalog: React.FC<CatalogProps> = () => {
         }
       };
       fetchMentors();
-    }
+    
 
   }, []);
 
