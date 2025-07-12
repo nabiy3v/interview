@@ -50,9 +50,15 @@ export const Catalog: React.FC<CatalogProps> = () => {
     const token = store.get('access-token');
     if (!token) {
         navigate('/auth')
+        return
     }
 
-    navigate(`mentors/${mentorId}/slots`)
+    navigate(`/mentors/${mentorId}/slots`);
+  }
+
+
+  const handleInfoBtn = (id: string) => {
+    navigate(`/mentors/${id}/infos`)
   }
 
   return (
@@ -84,9 +90,14 @@ export const Catalog: React.FC<CatalogProps> = () => {
                 <span className="text-yellow-500">★</span>
                 <span className="text-sm font-medium">Price: ${entry.price}</span>
               </div>
+              <div className='flex gap-4'>
               <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded text-sm" onClick={() => onAddRequest(entry.mentor.id)}>
                 Add Request
               </button>
+              <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded text-sm" onClick={() => handleInfoBtn(entry.mentor.id)}>
+                Info
+              </button>
+              </div>
             </div>
           ))}
         </div>

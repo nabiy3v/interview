@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, Outlet, Route, Routes as Switch } from 'react-router-dom';
 import { AuthContext } from '~/modules/auth/context';
 import { Login, Register, Catalogs, Mentors, Catalog, Mentor, Profile } from '~/pages';
+import { MentorInfo } from '~/pages/mentors/mentor-info';
+import { MentorSlot } from '~/pages/mentors/mentor-slot';
 
 export const Routes: React.FC = () => {
 	const { isLoading, isAuthenticated } = React.useContext(AuthContext);
@@ -25,6 +27,8 @@ export const Routes: React.FC = () => {
 			<Route path="mentors">
 				<Route index element={<Mentors />} />
 				<Route path=":mentorId" element={<Mentor />} />
+				<Route path=":mentorId/infos" element={<MentorInfo />} />
+				<Route path=":mentorId/slots" element={<MentorSlot />} />
 				<Route path="*" element={<Navigate to="/mentors" />} />
 			</Route>
 
